@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd;
+package com.androidapp.yanx.lan_gtd.toggl;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -22,6 +22,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.androidapp.yanx.lan_gtd.CraftClass;
+import com.androidapp.yanx.lan_gtd.R;
 import com.androidapp.yanx.lan_gtd.douban.DoubanActivity;
 
 import java.util.ArrayList;

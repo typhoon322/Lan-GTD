@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd.douban;
+package com.androidapp.yanx.lan_gtd.douban.entity;
 
 import java.util.List;
 
@@ -130,5 +130,23 @@ public class MovieItem {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "MovieItem{" +
+                "alt='" + alt + '\'' +
+                ", casts=" + casts.toString() +
+                ", collect_count=" + collect_count +
+                ", directors=" + directors.toString() +
+                ", genres=" + genres +
+                ", id=" + id +
+                ", images=" + images.toString() +
+                ", original_title='" + original_title + '\'' +
+                ", rating=" + rating +
+                ", subtype='" + subtype + '\'' +
+                ", title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                '}';
     }
 }

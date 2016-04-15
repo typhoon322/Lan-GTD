@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd.douban;
+package com.androidapp.yanx.lan_gtd.douban.entity;
 
 /**
  * com.androidapp.yanx.lan_gtd.douban
@@ -48,5 +48,15 @@ public class Director {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Director{" +
+                "alt='" + alt + '\'' +
+                ", avatars=" + avatars.toString() +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd.douban;
+package com.androidapp.yanx.lan_gtd.douban.entity;
 
 /**
  * com.androidapp.yanx.lan_gtd.douban
@@ -35,5 +35,14 @@ public class Image {
 
     public void setSmall(String small) {
         this.small = small;
+    }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "large='" + large + '\'' +
+                ", medium='" + medium + '\'' +
+                ", small='" + small + '\'' +
+                '}';
     }
 }

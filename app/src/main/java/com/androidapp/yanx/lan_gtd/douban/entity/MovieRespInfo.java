@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd.douban;
+package com.androidapp.yanx.lan_gtd.douban.entity;
 
 import java.util.List;
 
@@ -8,15 +8,15 @@ import java.util.List;
  * Description ${TODO}
  */
 public class MovieRespInfo {
-    public int count ;
+    public int count;
 
-    public int start ;
+    public int start;
 
-    public int total ;
+    public int total;
 
-    public String title ;
+    public String title;
 
-    public List<MovieItem> subjects ;
+    public List<MovieItem> subjects;
 
     public MovieRespInfo() {
     }
@@ -59,5 +59,16 @@ public class MovieRespInfo {
 
     public void setSubjects(List<MovieItem> subjects) {
         this.subjects = subjects;
+    }
+
+    @Override
+    public String toString() {
+        return "MovieRespInfo{" +
+                "count=" + count +
+                ", start=" + start +
+                ", total=" + total +
+                ", title='" + title + '\'' +
+                ", subjects=" + subjects.toString() +
+                '}';
     }
 }

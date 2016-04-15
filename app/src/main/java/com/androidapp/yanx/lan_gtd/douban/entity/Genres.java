@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd.douban;
+package com.androidapp.yanx.lan_gtd.douban.entity;
 
 /**
  * com.androidapp.yanx.lan_gtd.douban
