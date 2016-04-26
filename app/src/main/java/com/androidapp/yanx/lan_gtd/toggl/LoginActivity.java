@@ -7,38 +7,47 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.androidapp.yanx.lan_gtd.CraftClass;
+import com.androidapp.yanx.lan_gtd.LanApplication;
 import com.androidapp.yanx.lan_gtd.R;
-import com.androidapp.yanx.lan_gtd.douban.DoubanActivity;
+import com.androidapp.yanx.lan_gtd.toggl.entity.AuthDataEntity;
+import com.androidapp.yanx.lan_gtd.toggl.entity.AuthRespEntity;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements OnClickListener {
+public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
 
@@ -47,33 +56,25 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    CraftClass mCraft = new CraftClass(this);
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    @Bind(R.id.email)
+    AutoCompleteTextView mEmailView;
+    @Bind(R.id.password)
+    EditText mPasswordView;
+    @Bind(R.id.login_progress)
+    View mProgressView;
+    @Bind(R.id.login_form)
+    View mLoginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -85,11 +86,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(this);
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mEmailView.setText("typhoon322@qq.com");
+        mPasswordView.setText("19880322");
     }
 
     private void populateAutoComplete() {
@@ -188,59 +186,73 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         mEmailView.setAdapter(adapter);
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.email_sign_in_button:
-//                test();
-                startActivity(new Intent(LoginActivity.this, DoubanActivity.class));
-                break;
-        }
-    }
 
-    private Observable<List<String>> query(String text) {
-        List<String> list = new ArrayList<>();
-        list.add("url_1" + text);
-        list.add("url_2" + text);
-        list.add("url_3" + text);
-        list.add("url_4" + text);
-        list.add("url_5" + text);
-        return Observable.just(list);
-    }
+    @OnClick(R.id.email_sign_in_button)
+    void login() {
+        final String email = mEmailView.getText().toString();
+        final String password = mPasswordView.getText().toString();
+        String BASE_URL = "https://www.toggl.com/api/v8/";
+        String tokenStr = email + ":" + password;
+        final String credential = "Basic " + new String(Base64.encode(tokenStr.getBytes(), Base64.DEFAULT)).replace("\n", "");
 
-    private void test() {
-        query("-- yan")
-                .flatMap(new Func1<List<String>, Observable<String>>() {
-            @Override
-            public Observable<String> call(List<String> strings) {
-                return Observable.from(strings);
-            }
-        })
-                .filter(new Func1<String, Boolean>() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new Interceptor() {
                     @Override
-                    public Boolean call(String s) {
-                        return s!=null;
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        Log.i(TAG, "intercept: " + request.toString());
+                        return chain.proceed(request);
                     }
                 })
-                .take(3)
-                .subscribe(new Action1<String>() {
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
+        TogglService togglService = retrofit.create(TogglService.class);
+        togglService
+                .auth(ApiManager.CONTENT_TYPE_JSON, credential, true)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<AuthRespEntity>() {
                     @Override
-                    public void call(String s) {
-                        Log.i(TAG, "call: "+ s);
+                    public void onCompleted() {
+                        Log.i(TAG, "onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError: ", e);
+                    }
+
+                    @Override
+                    public void onNext(AuthRespEntity authRespEntity) {
+                        Log.i(TAG, "onNext: " + authRespEntity.getSince());
+                        AuthDataEntity data = authRespEntity.getData();
+                        if (data != null) {
+                            Log.i(TAG, "onNext: Login === SUCCESS ===" + data.api_token);
+
+                            int clientId = data.getClients().get(0).getId();
+                            LanApplication.setClientId(clientId);
+                            LanApplication.setApiToken(data.getApi_token());
+
+                            Bundle bundle = new Bundle();
+                            bundle.putInt(TogglMainActivity.KEY_CLIENT_ID, clientId);
+                            Intent intent = new Intent();
+                            intent.putExtras(bundle);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
                     }
                 });
-
     }
 
+    private void showData() {
 
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 
 }

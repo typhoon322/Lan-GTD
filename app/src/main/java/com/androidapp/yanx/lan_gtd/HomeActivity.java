@@ -8,10 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.androidapp.yanx.lan_gtd.douban.DoubanActivity;
-import com.androidapp.yanx.lan_gtd.toggl.LoginActivity;
+import com.androidapp.yanx.lan_gtd.gank.ui.GankMainActivity;
+import com.androidapp.yanx.lan_gtd.toggl.TogglMainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * com.androidapp.yanx.lan_gtd
@@ -21,18 +25,21 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity implements RecycleOnItemClickListener {
 
 
-    private List<Class> activityList = new ArrayList<>();
+    @Bind(R.id.recycle_view)
+    RecyclerView recyclerView;
+    private List<MenuEntity> activityList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        activityList.add(DoubanActivity.class);
-        activityList.add(LoginActivity.class);
+        activityList.add(new MenuEntity("豆瓣", DoubanActivity.class));
+        activityList.add(new MenuEntity("Toggl", TogglMainActivity.class));
+        activityList.add(new MenuEntity("Gank", GankMainActivity.class));
         HomeAdapter adapter = new HomeAdapter(this, activityList);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
@@ -41,6 +48,6 @@ public class HomeActivity extends AppCompatActivity implements RecycleOnItemClic
 
     @Override
     public void OnItemClick(View view, int position) {
-        startActivity(new Intent(this, activityList.get(position)));
+        startActivity(new Intent(this, activityList.get(position).clazz));
     }
 }

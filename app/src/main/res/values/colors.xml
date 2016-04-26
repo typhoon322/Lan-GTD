@@ -3,4 +3,36 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="color_type_1">#1abc9c</color>
+    <color name="color_type_2">#2ecc71</color>
+    <color name="color_type_3">#3498db</color>
+    <color name="color_type_4">#9b59b6</color>
+    <color name="color_type_5">#f1c40f</color>
+    <color name="color_type_6">#e98b39</color>
+    <color name="color_type_7">#e74c3c</color>
+    <color name="color_type_8">#2c3e50</color>
+
+    <color name="color_transparent">#0000</color>
+
+    <color name="color_gray_4">#8D8D8D</color>
+    <color name="color_gray_3">#EAE9E9</color>
+    <color name="color_gray_2">#B8B8B8</color>
+    <color name="color_gray_1">#5E5E5E</color>
+    <color name="color_gray_0">#202020</color>
+
+
+    <color name="color_theme_0">#E36C0A</color>
+    <color name="color_theme_1">#FF9035</color>
+    <color name="color_theme_2">#FFA357</color>
+    <color name="color_theme_3">#FFB77B</color>
+    <color name="color_theme_4">#FFCFA8</color>
+
+    <color name="blue">#5677fc</color>
+    <color name="red">#e51c23</color>
+    <color name="green">#259b24</color>
+    <color name="yellow">#ffeb3b</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="grey">#515151</color>
 </resources>

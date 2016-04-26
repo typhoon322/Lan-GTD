@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Class> activities;
+    private List<MenuEntity> activities;
 
     private LayoutInflater inflater;
 
@@ -24,13 +24,13 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private RecycleOnItemClickListener onItemClickListener;
 
-    public HomeAdapter(Context context, List<Class> list) {
+    public HomeAdapter(Context context, List<MenuEntity> list) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         setData(list);
     }
 
-    public void setData(List<Class> list) {
+    public void setData(List<MenuEntity> list) {
         activities = list;
     }
 
@@ -51,7 +51,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder h = (ViewHolder) holder;
-        h.btn_action.setText(activities.get(position).getName());
+        h.btn_action.setText(activities.get(position).getTitle());
     }
 
     @Override
