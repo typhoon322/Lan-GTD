@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd;
+package com.androidapp.yanx.lan_gtd.home;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.androidapp.yanx.lan_gtd.R;
+import com.androidapp.yanx.lan_gtd.RecycleOnItemClickListener;
+
 import java.util.List;
 
 /**
@@ -14,7 +17,7 @@ import java.util.List;
  * Created by yanx on 4/15/16 10:56 AM.
  * Description ${TODO}
  */
-public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     private List<MenuEntity> activities;
 
@@ -45,6 +48,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View item = inflater.inflate(R.layout.layout_item_home, parent, false);
+        item.setOnClickListener(this);
         return new ViewHolder(item);
     }
 
@@ -52,12 +56,22 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder h = (ViewHolder) holder;
         h.btn_action.setText(activities.get(position).getTitle());
+        h.itemView.setTag(activities.get(position).getClazz());
+//        BackgroundColor(context.getResources().getColor(Tools.getRandomColorFromAppColor()));
     }
 
     @Override
     public int getItemCount() {
         return activities.size();
     }
+
+    @Override
+    public void onClick(View view) {
+        if (onItemClickListener != null) {
+            onItemClickListener.OnItemClick(view, view.getTag());
+        }
+    }
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -66,23 +80,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             if (itemView != null) {
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (onItemClickListener != null) {
-                            onItemClickListener.OnItemClick(view, getAdapterPosition());
-                        }
-                    }
-                });
                 btn_action = (Button) itemView.findViewById(R.id.btn_action);
-                btn_action.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (onItemClickListener != null) {
-                            onItemClickListener.OnItemClick(view, getAdapterPosition());
-                        }
-                    }
-                });
             }
         }
     }

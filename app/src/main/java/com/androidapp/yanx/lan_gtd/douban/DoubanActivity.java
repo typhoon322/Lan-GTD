@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.androidapp.yanx.lan_gtd.DeviceUtil;
+import com.androidapp.yanx.lan_gtd.utils.DeviceUtil;
 import com.androidapp.yanx.lan_gtd.R;
 import com.androidapp.yanx.lan_gtd.SpacesItemDecorator;
 import com.androidapp.yanx.lan_gtd.douban.entity.MovieItem;

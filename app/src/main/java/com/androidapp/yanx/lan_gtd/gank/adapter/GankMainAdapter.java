@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd.gank;
+package com.androidapp.yanx.lan_gtd.gank.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.androidapp.yanx.lan_gtd.DeviceUtil;
+import com.androidapp.yanx.lan_gtd.utils.DeviceUtil;
 import com.androidapp.yanx.lan_gtd.ImageLoaderWrapper;
 import com.androidapp.yanx.lan_gtd.R;
 import com.androidapp.yanx.lan_gtd.gank.model.entity.GirlBean;
@@ -81,6 +82,12 @@ public class GankMainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             ButterKnife.bind(this, itemView);
             ivPortrait.setLayoutParams(layoutParams);
+            ivPortrait.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "~~~~", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }

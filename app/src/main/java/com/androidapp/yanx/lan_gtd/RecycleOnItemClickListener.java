@@ -8,5 +8,5 @@ import android.view.View;
  * Description ${TODO}
  */
 public interface RecycleOnItemClickListener {
-    void OnItemClick(View view,int position);
+    void OnItemClick(View view, Object data);
 }

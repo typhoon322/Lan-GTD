@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd.gank.ui.IView;
+package com.androidapp.yanx.lan_gtd.gank.ui.iview;
 
 import com.androidapp.yanx.lan_gtd.gank.model.entity.GirlBean;
 

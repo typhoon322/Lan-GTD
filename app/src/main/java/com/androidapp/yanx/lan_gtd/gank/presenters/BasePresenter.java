@@ -2,7 +2,7 @@ package com.androidapp.yanx.lan_gtd.gank.presenters;
 
 import android.content.Context;
 
-import com.androidapp.yanx.lan_gtd.gank.ui.IView.IViewBase;
+import com.androidapp.yanx.lan_gtd.gank.ui.iview.IViewBase;
 
 import rx.Subscription;
 

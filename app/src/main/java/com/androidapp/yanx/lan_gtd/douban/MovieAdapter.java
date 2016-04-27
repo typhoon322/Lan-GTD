@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.androidapp.yanx.lan_gtd.DeviceUtil;
+import com.androidapp.yanx.lan_gtd.utils.DeviceUtil;
 import com.androidapp.yanx.lan_gtd.R;
 import com.androidapp.yanx.lan_gtd.douban.entity.MovieItem;
 import com.bumptech.glide.Glide;

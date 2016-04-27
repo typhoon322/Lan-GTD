@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd.gank.ui.IView;
+package com.androidapp.yanx.lan_gtd.gank.ui.iview;
 
 /**
  * com.androidapp.yanx.lan_gtd.gank

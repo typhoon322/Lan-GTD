@@ -10,11 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
 
-import com.androidapp.yanx.lan_gtd.DeviceUtil;
+import com.androidapp.yanx.lan_gtd.utils.DeviceUtil;
 import com.androidapp.yanx.lan_gtd.LanApplication;
 import com.androidapp.yanx.lan_gtd.R;
 import com.androidapp.yanx.lan_gtd.SpacesItemDecorator;
-import com.androidapp.yanx.lan_gtd.StringUtil;
+import com.androidapp.yanx.lan_gtd.utils.StringUtil;
 import com.androidapp.yanx.lan_gtd.toggl.adapter.TogglMainAdapter;
 import com.androidapp.yanx.lan_gtd.toggl.entity.ProjectEntity;
 import com.google.gson.Gson;

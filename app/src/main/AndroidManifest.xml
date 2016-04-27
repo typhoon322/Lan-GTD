@@ -28,9 +28,15 @@
             android:label="Projects"/>
         <activity
             android:name=".gank.ui.GankMainActivity"
-            android:label="Projects"/>
+            android:label="Gank"/>
         <activity
-            android:name=".HomeActivity"
+            android:name=".gank.ui.GankCategoryActivity"
+            android:label="干货"/>
+        <activity
+            android:name=".gank.ui.GankHistoryListActivity"
+            android:label="历史消息"/>
+        <activity
+            android:name=".home.HomeActivity"
             android:label="Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

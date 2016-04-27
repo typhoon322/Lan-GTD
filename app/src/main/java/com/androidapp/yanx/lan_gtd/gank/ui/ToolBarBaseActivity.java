@@ -17,7 +17,7 @@ import butterknife.Bind;
  * Created by yanx on 4/24/16 2:30 PM.
  * Description ${TODO}
  */
-public abstract class ToolBarActivity<T extends BasePresenter> extends BaseActivity {
+public abstract class ToolBarBaseActivity<T extends BasePresenter> extends BaseActivity {
 
     protected boolean isToolBarHiding = false;
 

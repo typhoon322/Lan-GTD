@@ -1,4 +1,4 @@
-package com.androidapp.yanx.lan_gtd;
+package com.androidapp.yanx.lan_gtd.utils;
 
 import android.content.Context;
 import android.content.res.Resources;

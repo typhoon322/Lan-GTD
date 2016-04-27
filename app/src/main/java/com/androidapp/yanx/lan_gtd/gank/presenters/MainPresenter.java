@@ -1,11 +1,14 @@
 package com.androidapp.yanx.lan_gtd.gank.presenters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.androidapp.yanx.lan_gtd.gank.http.GankClient;
 import com.androidapp.yanx.lan_gtd.gank.model.GirlsData;
-import com.androidapp.yanx.lan_gtd.gank.ui.IView.IMainView;
+import com.androidapp.yanx.lan_gtd.gank.ui.GankCategoryActivity;
+import com.androidapp.yanx.lan_gtd.gank.ui.GankHistoryListActivity;
+import com.androidapp.yanx.lan_gtd.gank.ui.iview.IMainView;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -50,5 +53,13 @@ public class MainPresenter extends BasePresenter<IMainView> {
     @Override
     public void release() {
         subscription.unsubscribe();
+    }
+
+    public void toCategoryActivity() {
+        context.startActivity(new Intent(context, GankCategoryActivity.class));
+    }
+
+    public void toHistoryActivity() {
+        context.startActivity(new Intent(context, GankHistoryListActivity.class));
     }
 }
